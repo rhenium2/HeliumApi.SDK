@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Description>An unofficial SDK I created to use Helium Api in .NET applications (Console, Web or Mobile)</Description>
+        <Title>An unofficial SDK I created to use Helium Api in .NET applications (Console, Web or Mobile)</Title>
+        <Authors>Rhenium</Authors>
+        <PackageProjectUrl>https://github.com/rhenium2/HeliumApi.SDK</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/rhenium2/HeliumApi.SDK/blob/main/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/rhenium2/HeliumApi.SDK</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>Helium-api, Helium</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="GeoCoordinate.NetCore" Version="1.0.0.1" />
+        <PackageReference Include="LocalObjectCache" Version="1.0.1" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="Polly" Version="7.2.3" />
+    </ItemGroup>
+
+</Project>
