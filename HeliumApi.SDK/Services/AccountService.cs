@@ -1,26 +1,34 @@
 using HeliumApi.SDK.Helpers;
 using HeliumApi.SDK.Responses.Account;
 using HeliumApi.SDK.Responses.Account.Transactions;
-using LocalObjectCache;
 using Newtonsoft.Json;
+
+// ReSharper disable MemberCanBePrivate.Global
+
+// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
+
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedType.Global
 
 namespace HeliumApi.SDK.Services;
 
 public static class AccountService
 {
-    public static async Task<Account> GetAccount(string accountAddress)
+    public static async Task<Account> GetAccount(string accountAddress, bool ignoreCache = false)
     {
-        var cachedAccount =
-            Cache.Default.GetOne<Account>(x => x.Address.Equals(accountAddress));
-        if (cachedAccount != null)
+        if (!ignoreCache)
         {
-            return cachedAccount;
+            var cachedAccount = CacheHelper.GetOne<Account>(x => x.Address.Equals(accountAddress));
+            if (cachedAccount != null)
+            {
+                return cachedAccount;
+            }
         }
 
         var uri = $"/v1/accounts/{accountAddress}";
         var data = await HeliumClient.Get(uri);
         var account = JsonConvert.DeserializeObject<Account>(data.First());
-        Cache.Default.InsertOne<Account>(account);
+        CacheHelper.InsertOne<Account>(account);
 
         return account;
     }

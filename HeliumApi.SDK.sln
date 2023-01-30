@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1704.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeliumApi.SDK", "HeliumApi.SDK.csproj", "{178A957D-EB21-45FC-893B-DD94DBF63755}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeliumApi.SDK", "HeliumApi.SDK\HeliumApi.SDK.csproj", "{178A957D-EB21-45FC-893B-DD94DBF63755}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeliumApi.SDK.Test", "HeliumApi.SDK.Test\HeliumApi.SDK.Test.csproj", "{69E51A60-E535-4137-ACC4-BE6FB4685348}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{178A957D-EB21-45FC-893B-DD94DBF63755}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{178A957D-EB21-45FC-893B-DD94DBF63755}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{178A957D-EB21-45FC-893B-DD94DBF63755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69E51A60-E535-4137-ACC4-BE6FB4685348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69E51A60-E535-4137-ACC4-BE6FB4685348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69E51A60-E535-4137-ACC4-BE6FB4685348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69E51A60-E535-4137-ACC4-BE6FB4685348}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

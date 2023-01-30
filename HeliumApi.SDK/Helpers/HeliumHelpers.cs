@@ -3,6 +3,8 @@ using HeliumApi.SDK.Responses;
 using HeliumApi.SDK.Responses.Transactions;
 using Newtonsoft.Json;
 
+// ReSharper disable UnusedMember.Global
+
 namespace HeliumApi.SDK.Helpers;
 
 public static class HeliumHelpers
@@ -30,7 +32,7 @@ public static class HeliumHelpers
     public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
     {
         // Unix timestamp is seconds past epoch
-        DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+        var dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
         dateTime = dateTime.AddSeconds(unixTimeStamp);
         return dateTime;
     }
@@ -64,7 +66,7 @@ public static class HeliumHelpers
     {
         return dateTime.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ssK");
     }
-    
+
     public static Transaction DeserializeTransaction(string transactionString)
     {
         var transaction = JsonConvert.DeserializeObject<Transaction>(transactionString);
@@ -104,7 +106,7 @@ public static class HeliumHelpers
                 throw new InvalidCastException(transaction.Type);
         }
     }
-    
+
     public static decimal GetGain(int gain)
     {
         return (decimal)gain / 10;
@@ -177,8 +179,6 @@ public static class HeliumHelpers
 
         throw new ArgumentException(d.ToString());
     }
-
- 
 
     public static string GetSignalGoodness(int signal, double distance)
     {

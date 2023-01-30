@@ -2,9 +2,11 @@ using System.Globalization;
 using HeliumApi.SDK.Helpers;
 using HeliumApi.SDK.Responses;
 using HeliumApi.SDK.Responses.Transactions;
-using LocalObjectCache;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedType.Global
 
 namespace HeliumApi.SDK.Services;
 
@@ -12,7 +14,7 @@ public static class HotspotService
 {
     public static async Task<Hotspot> GetHotspot(string hotspotId)
     {
-        var cachedHotspot = Cache.Default.GetOne<Hotspot>(x => x.Address.Equals(hotspotId));
+        var cachedHotspot = CacheHelper.GetOne<Hotspot>(x => x.Address.Equals(hotspotId));
         if (cachedHotspot != null)
         {
             return cachedHotspot;
@@ -21,14 +23,14 @@ public static class HotspotService
         var uri = $"/v1/hotspots/{hotspotId}";
         var data = await HeliumClient.Get(uri);
         var hotspot = JsonConvert.DeserializeObject<Hotspot>(data.First());
-        Cache.Default.InsertOne<Hotspot>(hotspot);
+        CacheHelper.InsertOne<Hotspot>(hotspot);
 
         return hotspot;
     }
 
     public static async Task<Hotspot> GetHotspotByName(string name)
     {
-        var cachedHotspot = Cache.Default.GetOne<Hotspot>(x => x.Name.Equals(name));
+        var cachedHotspot = CacheHelper.GetOne<Hotspot>(x => x.Name.Equals(name));
         if (cachedHotspot != null)
         {
             return cachedHotspot;
@@ -43,7 +45,7 @@ public static class HotspotService
         }
 
         var hotspot = hotspots.First();
-        Cache.Default.InsertOne<Hotspot>(hotspot);
+        CacheHelper.InsertOne<Hotspot>(hotspot);
         return hotspot;
     }
 
@@ -97,8 +99,7 @@ public static class HotspotService
         var minTimestamp = ((DateTimeOffset)minTime).ToUnixTimeSeconds();
         var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
-        var cachedChallenges = Cache.Default
-            .GetMany<PocReceiptsV2Transaction>(x => x.Time >= minTimestamp)
+        var cachedChallenges = CacheHelper.GetMany<PocReceiptsV2Transaction>(x => x.Time >= minTimestamp)
             .OrderBy(x => x.Time).ToList();
         if (cachedChallenges.Any())
         {
@@ -107,7 +108,7 @@ public static class HotspotService
             {
                 var topMissing = await RetrieveNetworkChallenges(minTimestamp, firstItemTime);
                 var uniqueTopMissing = topMissing.ExceptBy(cachedChallenges.Select(x => x.Hash), x => x.Hash).ToList();
-                Cache.Default.InsertMany(uniqueTopMissing);
+                CacheHelper.InsertMany(uniqueTopMissing);
                 cachedChallenges.AddRange(uniqueTopMissing);
             }
 
@@ -117,7 +118,7 @@ public static class HotspotService
                 var bottomMissing = await RetrieveNetworkChallenges(lastItemTime, now);
                 var uniqueBottomMissing =
                     bottomMissing.ExceptBy(cachedChallenges.Select(x => x.Hash), x => x.Hash).ToList();
-                Cache.Default.InsertMany(uniqueBottomMissing);
+                CacheHelper.InsertMany(uniqueBottomMissing);
                 cachedChallenges.AddRange(uniqueBottomMissing);
             }
 
@@ -125,7 +126,7 @@ public static class HotspotService
         }
 
         var challenges = await RetrieveNetworkChallenges(minTimestamp);
-        Cache.Default.InsertMany(challenges);
+        CacheHelper.InsertMany(challenges);
         return challenges;
     }
 

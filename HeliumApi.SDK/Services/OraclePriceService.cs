@@ -1,6 +1,9 @@
+using HeliumApi.SDK.Helpers;
 using HeliumApi.SDK.Responses.OraclePrice;
-using LocalObjectCache;
 using Newtonsoft.Json;
+
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedType.Global
 
 namespace HeliumApi.SDK.Services;
 
@@ -9,8 +12,9 @@ public static class OraclePriceService
     public static async Task<OraclePrice> GetOraclePrice(int blockHeight)
     {
         var effectiveOraclePriceBlock = (blockHeight / 10) * 10;
+
         var cachedOraclePrice =
-            Cache.Default.GetOne<OraclePrice>(
+            CacheHelper.GetOne<OraclePrice>(
                 x => x.Block.Equals(effectiveOraclePriceBlock));
         if (cachedOraclePrice != null)
         {
@@ -20,7 +24,7 @@ public static class OraclePriceService
         var uri = $"/v1/oracle/prices/{blockHeight}";
         var allData = await HeliumClient.Get(uri);
         var price = JsonConvert.DeserializeObject<OraclePrice>(allData.First());
-        Cache.Default.InsertOne<OraclePrice>(price);
+        CacheHelper.InsertOne<OraclePrice>(price);
 
         return price;
     }

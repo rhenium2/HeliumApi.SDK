@@ -29,3 +29,10 @@ Available service classes are:
   - GetDailyRewards
 - **OraclePriceService:** methods to work with Oracle price information
   - GetOraclePrice
+
+## Caching
+The SDK by default has response caching enabled for most objects. However you can disable it by using
+```
+   CacheOptions.DisableCacheFor<object type>();
+```
+The cache validity is by default set to 1 day (24 hours). You can change it first thing in your program via _CacheOptions_.

@@ -13,6 +13,7 @@
         <RepositoryUrl>https://github.com/rhenium2/HeliumApi.SDK</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>Helium-api, Helium</PackageTags>
+        <Version>1.0.1-beta</Version>
     </PropertyGroup>
 
     <ItemGroup>

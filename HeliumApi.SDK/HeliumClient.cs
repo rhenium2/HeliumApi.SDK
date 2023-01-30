@@ -8,7 +8,7 @@ namespace HeliumApi.SDK;
 
 public static class HeliumClient
 {
-    private static readonly HttpClient HttpClient;
+    public static HttpClient HttpClient { get; set; }
     private const string BaseUri = "https://api.helium.io";
 
     static HeliumClient()
